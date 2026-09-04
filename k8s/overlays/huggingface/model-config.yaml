@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: slm-kag-config
+data:
+  SLM_KAG_EXTRACTOR: huggingface
+  SLM_KAG_GENERATOR: huggingface
+  SLM_KAG_HF_MODEL: Qwen/Qwen2.5-0.5B-Instruct
+  SLM_KAG_MODEL_DEVICE: auto
+

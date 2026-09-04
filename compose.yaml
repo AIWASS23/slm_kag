@@ -1,0 +1,51 @@
+services:
+  gui:
+    build:
+      context: .
+      args:
+        SLM_KAG_EXTRAS: ${SLM_KAG_GUI_EXTRAS:-gui}
+    command:
+      - streamlit
+      - run
+      - main.py
+      - --server.address=0.0.0.0
+      - --server.port=8501
+    ports:
+      - "8501:8501"
+    environment: &kag_environment
+      SLM_KAG_DB_PATH: /app/data/slm_kag.db
+      SLM_KAG_DOCUMENT_LOADER: ${SLM_KAG_DOCUMENT_LOADER:-docling}
+      SLM_KAG_MAX_FILE_SIZE: ${SLM_KAG_MAX_FILE_SIZE:-52428800}
+      SLM_KAG_MAX_PAGES: ${SLM_KAG_MAX_PAGES:-500}
+      SLM_KAG_EXTRACTOR: ${SLM_KAG_EXTRACTOR:-rules}
+      SLM_KAG_GENERATOR: ${SLM_KAG_GENERATOR:-deterministic}
+      SLM_KAG_OLLAMA_URL: http://ollama:11434
+      SLM_KAG_OLLAMA_MODEL: ${SLM_KAG_OLLAMA_MODEL:-qwen2.5:3b}
+      SLM_KAG_HF_MODEL: ${SLM_KAG_HF_MODEL:-Qwen/Qwen2.5-3B-Instruct}
+      SLM_KAG_MODELSCOPE_MODEL: ${SLM_KAG_MODELSCOPE_MODEL:-Qwen/Qwen2.5-3B-Instruct}
+      SLM_KAG_MODEL_DEVICE: ${SLM_KAG_MODEL_DEVICE:-auto}
+      SLM_KAG_MODEL_CACHE: /app/models
+    volumes: &kag_volumes
+      - kag_data:/app/data
+      - model_cache:/app/models
+
+  api:
+    build:
+      context: .
+      args:
+        SLM_KAG_EXTRAS: ${SLM_KAG_EXTRAS:-api,documents}
+    ports:
+      - "8000:8000"
+    environment: *kag_environment
+    volumes: *kag_volumes
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["slm"]
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  kag_data:
+  ollama_data:
+  model_cache:

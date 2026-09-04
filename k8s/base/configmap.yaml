@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: slm-kag-config
+data:
+  SLM_KAG_DB_PATH: /app/data/slm_kag.db
+  SLM_KAG_DOCUMENT_LOADER: docling
+  SLM_KAG_MAX_FILE_SIZE: "52428800"
+  SLM_KAG_MAX_PAGES: "500"
+  SLM_KAG_EXTRACTOR: rules
+  SLM_KAG_GENERATOR: deterministic
+  SLM_KAG_OLLAMA_URL: http://ollama:11434
+  SLM_KAG_OLLAMA_MODEL: qwen2.5:3b
+  SLM_KAG_HF_MODEL: Qwen/Qwen2.5-3B-Instruct
+  SLM_KAG_MODELSCOPE_MODEL: Qwen/Qwen2.5-3B-Instruct
+  SLM_KAG_MODEL_DEVICE: auto
+  SLM_KAG_MODEL_CACHE: /app/models
+  SLM_KAG_MODEL_MAX_NEW_TOKENS: "512"
+  SLM_KAG_TRUST_REMOTE_CODE: "false"
+  SLM_KAG_TOP_K: "8"
+  SLM_KAG_MAX_HOPS: "2"
+  SLM_KAG_EVIDENCE_BUDGET: "6000"
+  HF_HOME: /app/models/huggingface
+  MODELSCOPE_CACHE: /app/models/modelscope
+  TORCH_HOME: /app/models/torch
+  XDG_CACHE_HOME: /app/models/xdg
+  HOME: /tmp
+  TMPDIR: /tmp
+  PYTHONUNBUFFERED: "1"
+  PYTHONDONTWRITEBYTECODE: "1"
+  STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
+  STREAMLIT_SERVER_HEADLESS: "true"
+

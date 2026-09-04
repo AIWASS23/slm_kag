@@ -1,0 +1,69 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "slm-kag"
+version = "0.1.0"
+description = "Arquitetura KAG local-first para Small Language Models"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "SLM KAG Project" }]
+dependencies = []
+
+[project.optional-dependencies]
+api = ["fastapi>=0.115,<1", "python-multipart>=0.0.18,<1", "uvicorn[standard]>=0.30,<1"]
+documents = ["docling>=2.68,<3"]
+gui = ["docling>=2.68,<3", "streamlit>=1.63,<2"]
+huggingface = [
+  "accelerate>=1,<2",
+  "safetensors>=0.4,<1",
+  "torch>=2.2",
+  "transformers>=4.48,<6",
+]
+modelscope = [
+  "accelerate>=1,<2",
+  "modelscope>=1.22,<2",
+  "safetensors>=0.4,<1",
+  "torch>=2.2",
+  "transformers>=4.48,<6",
+]
+models = [
+  "accelerate>=1,<2",
+  "modelscope>=1.22,<2",
+  "safetensors>=0.4,<1",
+  "torch>=2.2",
+  "transformers>=4.48,<6",
+]
+all = [
+  "accelerate>=1,<2",
+  "docling>=2.68,<3",
+  "fastapi>=0.115,<1",
+  "modelscope>=1.22,<2",
+  "python-multipart>=0.0.18,<1",
+  "safetensors>=0.4,<1",
+  "streamlit>=1.63,<2",
+  "torch>=2.2",
+  "transformers>=4.48,<6",
+  "uvicorn[standard]>=0.30,<1",
+]
+dev = ["pytest>=8,<9", "ruff>=0.9,<1"]
+
+[project.scripts]
+slm-kag = "slm_kag.cli:main"
+slm-kag-gui = "slm_kag.streamlit_app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/slm_kag"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

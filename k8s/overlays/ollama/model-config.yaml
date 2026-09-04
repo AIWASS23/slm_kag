@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: slm-kag-config
+data:
+  SLM_KAG_EXTRACTOR: ollama
+  SLM_KAG_GENERATOR: ollama
+  SLM_KAG_OLLAMA_URL: http://ollama:11434
+  SLM_KAG_OLLAMA_MODEL: qwen2.5:3b
+
